@@ -2,10 +2,8 @@
 
 const net = require('net');
 global.PORT = process.env.PORT || 9000;
-global.ECHO = process.env.ECHO || false;
-
-const server = net.createServer((socket) => {    
-	/*socket.write('connected');*/
+global.ECHO = (process.env.ECHO == 'true' ? true:false);
+const server = net.createServer((socket) => {
 	socket.on('data', (received_data) => {
 		console.log('> ', received_data.toString());
 		if(ECHO) {
