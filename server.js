@@ -13,8 +13,9 @@ const server1 = net.createServer((socket) => {
 	socket1 = socket;
 	socket.on('data', (received_data) => {
 		console.log('CS1R> ', received_data.toString());
+		console.log('CS1R> ', Buffer.from(received_data.toString(), 'hex'));
 		if(socket2!=null && BRIDGE){
-			socket2.write(received_data.toString());
+			socket2.write(Buffer.from(received_data.toString(), 'hex'));
 		}
 		if(ECHO) {
 			socket.write(received_data);
@@ -31,8 +32,9 @@ const server2 = net.createServer((socket) => {
 	socket2 = socket;
 	socket.on('data', (received_data) => {
 		console.log('CS2R> ', received_data.toString());
+		console.log('CS2R> ', Buffer.from(received_data.toString(), 'hex').toString());
 		if(socket1 != null && BRIDGE){
-			socket1.write(received_data.toString());
+			socket1.write(Buffer.from(received_data.toString(), 'hex'));
 		}
 		if(ECHO) {
 			socket.write(received_data);
